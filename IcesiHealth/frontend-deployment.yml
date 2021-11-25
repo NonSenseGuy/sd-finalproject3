@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: node-frontend
 spec:
-  replicas: 3                    # Number of pods to run at any given time
+  replicas: 1                    # Number of pods to run at any given time
   selector:
     matchLabels:
       app: node-frontend
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: node-frontend
-        image: abarreral/node-frontend-sd3
+        image: abarreral/node-frontend-sd3:1.0.0
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080

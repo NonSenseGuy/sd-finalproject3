@@ -5,7 +5,7 @@ kind: Deployment
 metadata:
   name: node-backend
 spec:
-  replicas: 3                    # Number of pods to run at any given time
+  replicas: 1                    # Number of pods to run at any given time
   selector:
     matchLabels:
       app: node-backend
@@ -16,13 +16,13 @@ spec:
     spec:
       containers:
       - name: node-backend
-        image: abarreral/node-backend-sd3
+        image: abarreral/node-backend-sd3:latest
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8089
         env:
           - name: DATABASE_URL
-            value: coachdb
+            value: http://admin:password@coachdb-deploy:5984
 ---
 apiVersion: v1
 kind: Service
