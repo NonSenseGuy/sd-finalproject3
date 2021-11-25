@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-frontend
+spec:
+  replicas: 3                    # Number of pods to run at any given time
+  selector:
+    matchLabels:
+      app: node-frontend
+  template:
+    metadata:
+      labels:
+        app: node-frontend
+    spec:
+      containers:
+      - name: node-frontend
+        image: abarreral/node-frontend-sd3
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8080
+        env:
+          - name : BACKEND_URL
+            value: node-backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-frontend
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      # nodePort: 30164
+  selector:
+    app: node-frontend
+
